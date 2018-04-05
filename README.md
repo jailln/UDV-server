@@ -14,7 +14,7 @@ Version number is defined in `setup.py`.
 This tool allows to process a
 [3DCityDB](https://www.3dcitydb.org/3dcitydb/3dcitydbhomepage/) database to create
 a materialized view on buildings of the database containing their id, their geometry
-and optionnally their year of construction and year of demolition.
+and optionally their year of construction and year of demolition.
 
 #### Use
 
@@ -23,7 +23,7 @@ Activate venv if you created one:
 
 You can run `python extract_city_data.py -h` to display help about this tool.
 
-`extract_city_data.py` takes one mandatory argument and one optionnal argument.
+`extract_city_data.py` takes one mandatory argument and one optional argument.
 
 The first one is a configuration file for the database such as `ExtractCityData/db_config.yml`:
 
@@ -39,7 +39,7 @@ MATERIALIZED_VIEW_NAME: <name of the output materialized view>
 You must fill these information. *Note: `MATERIALIZED_VIEW_NAME` must start with
 a letter.*
 
-It also takes an optionnal argument : `-t` or `--temporal`. If set, the materialized
+It also takes an optional argument : `-t` or `--temporal`. If set, the materialized
 view will also contain the years of constructions and years of demolitions of the
 buildings.
 
