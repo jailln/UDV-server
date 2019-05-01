@@ -95,7 +95,7 @@ def delete_document(doc_id):
         lambda: DocController.delete_documents(doc_id))()
 
 
-@app.route('/document/file/<int:doc_id>', methods=['POST'])
+@app.route('/document/<int:doc_id>/file', methods=['POST'])
 def upload_file(doc_id):
     if request.method == 'POST':
         if request.files.get('file'):
@@ -103,7 +103,7 @@ def upload_file(doc_id):
             save_file(doc_id, file)
 
 
-@app.route('/document/file/<int:doc_id>')
+@app.route('/document/<int:doc_id>/file', methods=['GET'])
 def get_uploaded_file(doc_id):
     return send_from_directory(
         safe_join(os.getcwd(), app.config['UPLOAD_FOLDER']), doc_id)
@@ -126,7 +126,7 @@ def get_all_guided_tours():
         lambda: TourController.get_tours())()
 
 
-@app.route('/guidedtour/<int:tour_id>')
+@app.route('/guidedtour/<int:tour_id>', methods=['GET'])
 def get_guided_tour(tour_id):
     return send_response(
         lambda: TourController.get_tour_by_id(tour_id))()
@@ -149,7 +149,7 @@ def add_document_to_guided_tour(tour_id):
         lambda: TourController.add_document(tour_id, doc_id))()
 
 
-@app.route('/guidedTour/<int:tour_id>/document', methods=['POST'])
+@app.route('/guidedTour/<int:tour_id>/document', methods=['PUT'])
 def update_guided_tour_document(tour_id):
     doc_position = int(request.form.get('doc_position'))
     return send_response(
