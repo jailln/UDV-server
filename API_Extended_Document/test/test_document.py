@@ -1,35 +1,43 @@
 #!/usr/bin/env python3
 # coding: utf8
-import pytest
 
 from controller.Controller import Controller
 from controller.DocController import DocController
 
-from test.test_functions import *
-
-def make(old_function):
-    def new_function(a):
-        print(a)
-        assert a == 2
-        old_function()
-    return new_function
-
 
 class TestDocument:
-    @pytest.fixture
-    def create_tables(self):
-        pass
+    def test_create_documents(self):
         Controller.recreate_tables()
+        print("Create a valid document")
+        expected_response = {
+            'id': 1,
+            'metaData': {
+                'title': 'title',
+                'type': 'type',
+                'description': 'a description',
+                'link': '1.gif',
+                'subject': 'Subject1',
+                'originalName': None,
+                'id': 1,
+                'refDate': None,
+                'publicationDate': None},
+            'visualization': {
+                'quaternionW': None,
+                'quaternionX': None,
+                'positionY': None,
+                'quaternionY': None,
+                'quaternionZ': None,
+                'positionX': None,
+                'positionZ': None,
+                'id': 1}}
 
-    def test_create_documents(self,create_tables):
-        print('\033[01m## Creation ##\033[0m')
-        make(lambda: DocController.create_document({
+        assert expected_response == DocController.create_document({
             'title': 'title',
             'subject': 'Subject1',
             'type': 'type',
             'description': 'a description',
             'link': '1.gif'
-        }))(2)
+        })
 
         # make_test(lambda: DocController.create_document({
         #     'title': 'title',
@@ -46,6 +54,8 @@ class TestDocument:
         #     'description': 'a description',
         #     'link': '1.gif'
         # }, "create document","{'visualization': {'quaternionX': None, 'positionY': None, 'quaternionZ': None, 'quaternionY': None, 'quaternionW': None, 'id': 1, 'positionZ': None, 'positionX': None}, 'valid_doc': None, 'id': 1, 'to_validate_doc': {'id_to_validate': 1}, 'metaData': {'title': 'title', 'description': 'a description', 'publicationDate': None, 'originalName': None, 'subject': 'Subject1', 'refDate': None, 'id': 1, 'type': 'type', 'link': '1.gif'}}")
+
+
 #         make_test(lambda: DocController.create_document({
 #             'title': 'title',
 #             'subject': 'Subject1',
@@ -134,3 +144,8 @@ class TestDocument:
 #     print('\n\n\033[04mSuccess\033[01m: ',
 #           TestDocument.nb_tests_succeed, '/',
 #           TestDocument.nb_tests, sep='')
+
+
+if __name__ == '__main__':
+    Controller.recreate_tables()
+    TestDocument().test_create_documents()
