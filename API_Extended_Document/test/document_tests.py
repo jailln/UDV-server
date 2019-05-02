@@ -22,8 +22,7 @@ class DocumentTest:
             'subject': 'Subject1',
             'type': 'type',
             'description': 'a description',
-            'link': '1.gif',
-            'validation' : 0
+            'link': '1.gif'
         }))(DocumentTest, 'all needed attributes', False)
 
         make_test(lambda: DocController.create_document({
@@ -31,8 +30,7 @@ class DocumentTest:
             'subject': 'Subject1',
             'type': 'type',
             'description': 'a description',
-            'link': '1.gif',
-            'validation' : 1}))(
+            'link': '1.gif'}))(
             DocumentTest, 'all needed attributes', False)
 
         make_test(lambda: DocController.create_document({
@@ -41,8 +39,7 @@ class DocumentTest:
             'type': 'type',
             'description': 'a description',
             'link': '2.gif',
-            'refDate': '2019-02-05',
-            'validation' : 0
+            'refDate': '2019-02-05'
         }))(DocumentTest, 'all needed attributes', False)
 
         make_test(lambda: DocController.create_document({
@@ -52,30 +49,12 @@ class DocumentTest:
             'non_attr': 'non_value',
             'refDate': '2018-12-03',
             'description': 'an other description',
-            'link': '3.png',
-            'validation' : 1
+            'link': '3.png'
         }))(DocumentTest, 'needed + nonexistent attributes', False)
 
         make_test(lambda: DocController.create_document({
-            'title': 'another title',
-            'subject': 'Subject4',
-            'type': 'type',
-            'non_attr': 'non_value',
-            'refDate': '2018-12-02',
-            'description': 'an other description',
-            'link': '4.png',
-            'validation' : 0
-        }))(DocumentTest, 'needed + nonexistent attributes', False)
-
-        make_test(lambda: DocController.create_document({
-            'title': 'another title',
-            'validation' : 0
+            'title': 'another title'
         }))(DocumentTest, 'needed argument missing', True)
-
-        print('\033[01m## validation ##\033[0m')
-        make_test(lambda: DocController.validate_document({
-            'id': 5
-        }))(DocumentTest, 'document validation', False)
 
     @staticmethod
     def read_documents():
@@ -89,9 +68,6 @@ class DocumentTest:
             'refDateStart': '2018-12-03'
         }))(DocumentTest, 'specific documents', False)
 
-        make_test(lambda: DocController.get_documents_to_validate({
-        }))(DocumentTest, 'to validate documents', False)
-
         make_test(lambda: DocController.get_document_by_id(1))(
             DocumentTest, 'document with existing id', False)
 
@@ -103,20 +79,17 @@ class DocumentTest:
         print('\n\033[01m## Updating ##\033[0m')
         make_test(lambda: DocController.update_document(1, {
             'positionX': 12,
-            'description': 'description of a document',
-            'validation' : 0
+            'description': 'description of a document'
         }))(DocumentTest, 'existing document', False)
 
         make_test(lambda: DocController.update_document(1, {
             'positionX': 12,
-            'description': 'another description',
-            'validation' : 0
+            'description': 'another description'
         }))(DocumentTest, 'existing document', False)
 
         make_test(lambda: DocController.update_document(-1, {
             'positionX': 12,
-            'description': 'description of a document',
-            'validation' : 0
+            'description': 'description of a document'
         }))(DocumentTest, 'existing document', True)
 
     @staticmethod
