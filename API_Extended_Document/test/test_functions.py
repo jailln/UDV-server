@@ -13,27 +13,12 @@ def display_error(error=True):
 
 
 def make_test(old_function):
-    def new_function(TestClass, description, expecting_error):
-        happened_error = False
-        function_result = ""
+    def new_function(description, expecting_result, expecting_error=""):
+        print(description)
         exception = ""
-        try:
-            function_result = old_function()
-        except Exception as e:
-            exception = e
-            happened_error = True
-        finally:
-            display_error(expecting_error != happened_error)
-            display_error(expecting_error)
-            display_error(happened_error)
-            print("{:<32}".format(description + ":"), end="")
-            print(Fore.RED, str(exception).replace("\n", ""),
-                  end="")
-            print(Fore.BLUE, function_result, sep="", end="")
-            print(Style.RESET_ALL, sep="")
-
-            TestClass.nb_tests += 1
-            if expecting_error == happened_error:
-                TestClass.nb_tests_succeed += 1
+        assert 1 == 2
+        function_result = old_function()
+        print(function_result)
+        assert function_result == expecting_result
 
     return new_function
