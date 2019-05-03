@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # coding: utf8
+import pytest
+import sqlalchemy.orm
 
 from controller.Controller import Controller
 from controller.DocController import DocController
 
 
 class TestDocument:
-    def test_create_documents(self):
+    def test_create_documents_1(self):
         Controller.recreate_tables()
         print("Create a valid document")
         expected_response = {
@@ -39,113 +41,143 @@ class TestDocument:
             'link': '1.gif'
         })
 
-        # make_test(lambda: DocController.create_document({
-        #     'title': 'title',
-        #     'subject': 'Subject1',
-        #     'type': 'type',
-        #     'description': 'a description',
-        #     'link': '1.gif'
-        # }))("create document","{'visualization': {'quaternionX': None, 'positionY': None, 'quaternionZ': None, 'quaternionY': None, 'quaternionW': None, 'id': 1, 'positionZ': None, 'positionX': None}, 'valid_doc': None, 'id': 1, 'to_validate_doc': {'id_to_validate': 1}, 'metaData': {'title': 'title', 'description': 'a description', 'publicationDate': None, 'originalName': None, 'subject': 'Subject1', 'refDate': None, 'id': 1, 'type': 'type', 'link': '1.gif'}}")
-        #
-        # DocController.create_document({
-        #     'title': 'title',
-        #     'subject': 'Subject1',
-        #     'type': 'type',
-        #     'description': 'a description',
-        #     'link': '1.gif'
-        # }, "create document","{'visualization': {'quaternionX': None, 'positionY': None, 'quaternionZ': None, 'quaternionY': None, 'quaternionW': None, 'id': 1, 'positionZ': None, 'positionX': None}, 'valid_doc': None, 'id': 1, 'to_validate_doc': {'id_to_validate': 1}, 'metaData': {'title': 'title', 'description': 'a description', 'publicationDate': None, 'originalName': None, 'subject': 'Subject1', 'refDate': None, 'id': 1, 'type': 'type', 'link': '1.gif'}}")
+    def test_create_documents_2(self):
+        print("needed + nonexistent attributes")
+        expected_response = {
+            'id': 2,
+            'metaData': {
+                'title': 'title2',
+                'type': 'type2',
+                'description': 'another description',
+                'link': '2.gif',
+                'subject': 'Subject2',
+                'originalName': None,
+                'id': 2,
+                'refDate': None,
+                'publicationDate': None},
+            'visualization': {
+                'quaternionW': None,
+                'quaternionX': None,
+                'positionY': None,
+                'quaternionY': None,
+                'quaternionZ': None,
+                'positionX': None,
+                'positionZ': None,
+                'id': 2}}
+        assert expected_response == DocController.create_document({
+            'title': 'title2',
+            'subject': 'Subject2',
+            'type': 'type2',
+            'non_attr': 'non_value',
+            'description': 'another description',
+            'link': '2.gif'
+        })
+
+    def test_read_documents_1(self):
+        print("all documents")
+        expected_response = 2
+        assert expected_response == len(DocController.get_documents({}))
+
+    def test_read_documents_2(self):
+        print("specific documents")
+        expected_response = [{
+            'id': 2,
+            'metaData': {
+                'title': 'title2',
+                'type': 'type2',
+                'description': 'another description',
+                'link': '2.gif',
+                'subject': 'Subject2',
+                'originalName': None,
+                'id': 2,
+                'refDate': None,
+                'publicationDate': None},
+            'visualization': {
+                'quaternionW': None,
+                'quaternionX': None,
+                'positionY': None,
+                'quaternionY': None,
+                'quaternionZ': None,
+                'positionX': None,
+                'positionZ': None,
+                'id': 2}}]
+        assert expected_response == DocController.get_documents({
+            'type': 'type2'
+        })
+
+    def test_read_documents_3(self):
+        print("document with existing id")
+        expected_response = {
+            'id': 1,
+            'metaData': {
+                'title': 'title',
+                'type': 'type',
+                'description': 'a description',
+                'link': '1.gif',
+                'subject': 'Subject1',
+                'originalName': None,
+                'id': 1,
+                'refDate': None,
+                'publicationDate': None},
+            'visualization': {
+                'quaternionW': None,
+                'quaternionX': None,
+                'positionY': None,
+                'quaternionY': None,
+                'quaternionZ': None,
+                'positionX': None,
+                'positionZ': None,
+                'id': 1}}
+        assert expected_response == DocController.get_document_by_id(1)
+
+    def test_read_documents_4(self):
+        print("document with non existing id")
+        with pytest.raises(sqlalchemy.orm.exc.NoResultFound):
+            DocController.get_document_by_id(5)
+
+    def test_update_documents_1(self):
+        print("existing document")
+        expected_response = {
+            'id': 1,
+            'metaData': {
+                'title': 'title',
+                'type': 'type',
+                'description': 'description of a document',
+                'link': '1.gif',
+                'subject': 'Subject1',
+                'originalName': None,
+                'id': 1,
+                'refDate': None,
+                'publicationDate': None},
+            'visualization': {
+                'quaternionW': None,
+                'quaternionX': None,
+                'positionY': None,
+                'quaternionY': None,
+                'quaternionZ': None,
+                'positionX': 12,
+                'positionZ': None,
+                'id': 1}}
+
+        assert expected_response == DocController.update_document(1, {
+            'positionX': 12,
+            'description': 'description of a document'
+        })
+
+    def test_update_documents_2(self):
+        print("non existing document")
+        with pytest.raises(sqlalchemy.orm.exc.NoResultFound):
+            DocController.update_document(-1, {
+                'positionX': 12,
+                'description': 'description of a document'})
+
+    def test_delete_documents_1(self):
+        print("non existing document")
+        with pytest.raises(sqlalchemy.orm.exc.NoResultFound):
+            DocController.delete_documents(4)
 
 
-#         make_test(lambda: DocController.create_document({
-#             'title': 'title',
-#             'subject': 'Subject1',
-#             'type': 'type',
-#             'description': 'a description',
-#             'link': '1.gif'}))(
-#              'all needed attributes', False)
-#
-#         make_test(lambda: DocController.create_document({
-#             'title': 'title',
-#             'subject': 'Subject2',
-#             'type': 'type',
-#             'description': 'a description',
-#             'link': '2.gif',
-#             'refDate': '2019-02-05'
-#         }))( 'all needed attributes', False)
-#
-#         make_test(lambda: DocController.create_document({
-#             'title': 'another title',
-#             'subject': 'Subject3',
-#             'type': 'type',
-#             'non_attr': 'non_value',
-#             'refDate': '2018-12-03',
-#             'description': 'an other description',
-#             'link': '3.png'
-#         }))( 'needed + nonexistent attributes', False)
-#
-#         make_test(lambda: DocController.create_document({
-#             'title': 'another title'
-#         }))( 'needed argument missing', True)
-#
-#     @staticmethod
-#     def read_documents():
-#         print('\n\033[01m## Reading ##\033[0m')
-#
-#         make_test(lambda: DocController.get_documents({}))(
-#              'all documents', False)
-#
-#         make_test(lambda: DocController.get_documents({
-#             'keyword': 'description',
-#             'refDateStart': '2018-12-03'
-#         }))( 'specific documents', False)
-#
-#         make_test(lambda: DocController.get_document_by_id(1))(
-#              'document with existing id', False)
-#
-#         make_test(lambda: DocController.get_document_by_id(-1))(
-#              'document with non existing id', True)
-#
-#     @staticmethod
-#     def update_documents():
-#         print('\n\033[01m## Updating ##\033[0m')
-#         make_test(lambda: DocController.update_document(1, {
-#             'positionX': 12,
-#             'description': 'description of a document'
-#         }))( 'existing document', False)
-#
-#         make_test(lambda: DocController.update_document(1, {
-#             'positionX': 12,
-#             'description': 'another description'
-#         }))( 'existing document', False)
-#
-#         make_test(lambda: DocController.update_document(-1, {
-#             'positionX': 12,
-#             'description': 'description of a document'
-#         }))( 'existing document', True)
-#
-#     @staticmethod
-#     def delete_documents():
-#         print('\n\033[01m## Deletion ##\033[0m')
-#         make_test(lambda: DocController.delete_documents(2))(
-#              'existing document', False)
-#
-#         make_test(lambda: DocController.delete_documents(2))(
-#              'non existing document', True)
-#
-#
-# if __name__ == '__main__':
-#     Controller.recreate_tables()
-#     TestDocument.create_documents()
-#     TestDocument.read_documents()
-#     TestDocument.update_documents()
-#     TestDocument.read_documents()
-#     TestDocument.delete_documents()
-#     TestDocument.read_documents()
-#     print('\n\n\033[04mSuccess\033[01m: ',
-#           TestDocument.nb_tests_succeed, '/',
-#           TestDocument.nb_tests, sep='')
-
-
-if __name__ == '__main__':
-    Controller.recreate_tables()
-    TestDocument().test_create_documents()
+if __name__ == "__main__":
+    TestDocument().test_create_documents_1()
+    TestDocument().test_create_documents_2()
+    TestDocument().test_delete_documents_1()
