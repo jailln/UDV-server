@@ -19,25 +19,27 @@ def ParseCommandLine():
     return parser.parse_args()
 
 
-def parse_and_simplify(file_path_name, name_space):
+def parse_and_simplify(file_path_name):
     parser = ET.XMLParser(remove_comments=True)
-    result = ET.parse(file_path_name, parser)
-    appearance = result.find("//app:appearanceMember",
-                             namespaces=name_space)
+    parsed_file = ET.parse(file_path_name, parser)
+    # Remove textures coordinates (currently not used by our
+    # algorithms)
+    # parsed_file.getroot().nsmap['app'] retrieves the namespace from
+    # the parsed_file (defined in the root element)
+    appearance = parsed_file.find("//app:appearanceMember",
+                             namespaces={'app': parsed_file.getroot().nsmap['app']})
     if appearance is not None:
         appearance.getparent().remove(appearance)
-    return result
+    return parsed_file
 
 if __name__ == '__main__':
     cli_args = ParseCommandLine()
-    name_space = {None: 'http://www.opengis.net/citygml/1.0',
-                  'app': 'http://www.opengis.net/citygml/appearance/1.0'}
-    inputs = [ parse_and_simplify(filename, name_space)
+    inputs = [ parse_and_simplify(filename)
                for filename in cli_args.input]
     # We recycle the first parsed input to become the output
     output = inputs[0]
 
     for city_object_member in inputs[1].findall(".//cityObjectMember",
-                                                namespaces=name_space):
+                                                namespaces={None: inputs[1].getroot().nsmap[None]}):
         output.getroot().append(city_object_member)
     output.write(cli_args.output[0])
