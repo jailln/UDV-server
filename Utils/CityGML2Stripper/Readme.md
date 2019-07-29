@@ -1,5 +1,5 @@
-A small utility that strips a CityGML 2.0 (XML) 
-files and serialize the result in a new CityGML (XML) 
+A small utility that strip a CityGML 2.0 (XML) 
+file and serializes the result in a new CityGML (XML) 
 file. It removes appearences and generic attributes.
 
 ## Installation
