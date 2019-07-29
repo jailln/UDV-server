@@ -4,7 +4,7 @@ import lxml.etree as ET
 def ParseCommandLine():
     # arg parse
     descr = '''A small utility that strips a CityGML 2.0 (XML) 
-            files and serialize the result in a new CityGML (XML) 
+            file and serializes the result in a new CityGML (XML) 
             file. It removes appearences and generic attributes.'''
     parser = argparse.ArgumentParser(description=descr)
     parser.add_argument('--input',
