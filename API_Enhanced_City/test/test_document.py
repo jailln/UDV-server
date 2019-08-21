@@ -38,12 +38,11 @@ class TestDocument:
         expected_response = {
             'file': '1.gif',
             'description': 'a description',
-            'subject': 'Subject1',
+            'source': 'source1',
             'title': 'title',
-            'originalName': None,
-            'type': 'type',
             'publicationDate': None,
             'refDate': None,
+            'rightsHolder': None,
             'visualization': {
                 'positionX': None,
                 'quaternionY': None,
@@ -65,8 +64,7 @@ class TestDocument:
         assert expected_response == DocController.create_document({
             'user_id': 1,
             'title': 'title',
-            'subject': 'Subject1',
-            'type': 'type',
+            'source': 'source1',
             'description': 'a description',
             'file': '1.gif',
             'role': {'label': 'admin'}
@@ -81,11 +79,10 @@ class TestDocument:
             'id': 2,
             'publicationDate': None,
             'refDate': FAKE_REF_DATE,
-            'subject': 'Subject2',
+            'source': 'source2',
             'file': '2.gif',
             'description': 'a description',
-            'type': 'type',
-            'originalName': None,
+            'rightsHolder': None,
             'title': 'title',
             'validationStatus': {
                 'doc_id': 2,
@@ -107,8 +104,7 @@ class TestDocument:
         assert expected_response == DocController.create_document({
             'user_id': 2,
             'title': 'title',
-            'subject': 'Subject2',
-            'type': 'type',
+            'source': 'source2',
             'description': 'a description',
             'file': '2.gif',
             'refDate': FAKE_REF_DATE,
@@ -123,8 +119,7 @@ class TestDocument:
         assert DocController.create_document({
             'user_id': 2,
             'title': 'another title',
-            'subject': 'Subject3',
-            'type': 'type',
+            'source': 'source3',
             'non_attr': 'non_value',
             'refDate': FAKE_REF_DATE,
             'description': 'an other description',
@@ -140,8 +135,7 @@ class TestDocument:
         assert DocController.create_document({
             'user_id': 1,
             'title': 'another title',
-            'subject': 'Subject3',
-            'type': 'type',
+            'source': 'source3',
             'non_attr': 'non_value',
             'refDate': FAKE_REF_DATE,
             'description': 'details',

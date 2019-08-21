@@ -20,13 +20,12 @@ class TestArchive:
             'comments': [],
             'user_id': 1,
             'publicationDate': None,
-            'subject': 'Subject1',
+            'source': 'source1',
             'title': 'title',
             'refDate': None,
             'file': '1.gif',
-            'originalName': None,
+            'rightsHolder': None,
             'description': 'a description',
-            'type': 'type',
             'validationStatus': {
                 'doc_id': 1,
                 'status': Status.Validated
@@ -43,8 +42,7 @@ class TestArchive:
         }
         assert expected_response == DocController.create_document({
             'title': 'title',
-            'subject': 'Subject1',
-            'type': 'type',
+            'source': 'source1',
             'description': 'a description',
             'file': '1.gif',
             'user_id': 1,
@@ -59,14 +57,13 @@ class TestArchive:
         print("update a document")
         expected_response = {
             'user_id': 1,
-            'type': 'type',
             'publicationDate': None,
             'description': 'description of a document',
-            'subject': 'Subject1',
+            'source': 'source1',
             'file': '1.gif',
             'refDate': None,
             'title': 'title',
-            'originalName': None,
+            'rightsHolder': None,
             'id': 1,
             'visualization': {
                 'quaternionY': None,
@@ -101,10 +98,9 @@ class TestArchive:
             'file': '1.gif',
             'publicationDate': None,
             'description': 'a new description',
-            'originalName': None,
-            'subject': 'Subject1',
-            'type': 'type',
+            'source': 'source1',
             'title': 'title',
+            'rightsHolder': None,
             'visualization': {
                 'positionZ': None,
                 'quaternionX': None,
@@ -147,14 +143,14 @@ class TestArchive:
         expected_response =  [
             {
                 'positionZ': None,
-                'subject': 'Subject1',
+                'source': 'source1',
                 'quaternionW': None,
                 'user_id': 1,
                 'refDate': None,
                 'id': 3,
                 'positionX': 12.0,
                 'quaternionX': None,
-                'originalName': None,
+                'rightsHolder': None,
                 'version': 3,
                 'quaternionY': None,
                 'title': 'title',
@@ -164,18 +160,17 @@ class TestArchive:
                 'quaternionZ': None,
                 'positionY': 15.0,
                 'publicationDate': None,
-                'type': 'type'
             },
             {
                 'positionZ': None,
-                'subject': 'Subject1',
+                'source': 'source1',
                 'quaternionW': None,
                 'user_id': 1,
                 'refDate': None,
                 'id': 2,
                 'positionX': 12.0,
                 'quaternionX': None,
-                'originalName': None,
+                'rightsHolder': None,
                 'version': 2,
                 'quaternionY': None,
                 'title': 'title',
@@ -185,18 +180,17 @@ class TestArchive:
                 'quaternionZ': None,
                 'positionY': None,
                 'publicationDate': None,
-                'type': 'type'
             },
             {
                 'positionZ': None,
-                'subject': 'Subject1',
+                'source': 'source1',
                 'quaternionW': None,
                 'user_id': 1,
                 'refDate': None,
                 'id': 1,
                 'positionX': None,
                 'quaternionX': None,
-                'originalName': None,
+                'rightsHolder': None,
                 'version': 1,
                 'quaternionY': None,
                 'title': 'title',
@@ -205,8 +199,7 @@ class TestArchive:
                 'file': '1.gif',
                 'quaternionZ': None,
                 'positionY': None,
-                'publicationDate': None,
-                'type': 'type'
+                'publicationDate': None
             }
         ]
         assert expected_response == ArchiveController.get_archive(1)

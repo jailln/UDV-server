@@ -19,13 +19,12 @@ class Document(Entity, Base):
     id = Column(Integer, primary_key=True)
 
     title = Column(String, nullable=False)
-    subject = Column(String, nullable=False)
+    source = Column(String, nullable=False)
     description = Column(String, nullable=False)
     refDate = Column(DateTime(timezone=True))
     publicationDate = Column(DateTime(timezone=True))
-    type = Column(String)
+    rightsHolder = Column(String)
     file = Column(String)
-    originalName = Column(String)
 
     comments = relationship("Comment",
                             cascade="all, delete-orphan")

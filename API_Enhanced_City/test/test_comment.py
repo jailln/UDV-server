@@ -37,13 +37,12 @@ class TestComment:
             'comments': [],
             'user_id': 1,
             'publicationDate': None,
-            'subject': 'Subject1',
+            'source': 'source1',
             'title': 'title',
             'refDate': None,
             'file': '1.gif',
-            'originalName': None,
+            'rightsHolder': None,
             'description': 'a description',
-            'type': 'type',
             'validationStatus': {
                 'status': Status.Validated,
                 'doc_id': 1
@@ -61,8 +60,7 @@ class TestComment:
         }
         assert expected_response == DocController.create_document({
             'title': 'title',
-            'subject': 'Subject1',
-            'type': 'type',
+            'source': 'source1',
             'description': 'a description',
             'file': '1.gif',
             'user_id': 1,
