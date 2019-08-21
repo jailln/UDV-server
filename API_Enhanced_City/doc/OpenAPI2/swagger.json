@@ -346,12 +346,6 @@
             "type": "string"
           },
           {
-            "name": "subject",
-            "in": "formData",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "description",
             "in": "formData",
             "required": true,
@@ -370,9 +364,15 @@
             "type": "string"
           },
           {
-            "name": "type",
+            "name": "source",
             "in": "formData",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rightsHolder",
+            "in": "formData",
+            "required": false,
             "type": "string"
           },
           {
@@ -512,12 +512,6 @@
             "type": "string"
           },
           {
-            "name": "subject",
-            "in": "formData",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "description",
             "in": "formData",
             "required": false,
@@ -536,7 +530,13 @@
             "type": "string"
           },
           {
-            "name": "type",
+            "name": "source",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rightsHolder",
             "in": "formData",
             "required": false,
             "type": "string"
@@ -1649,10 +1649,6 @@
           "type": "string",
           "example": "Perrache"
         },
-        "subject": {
-          "type": "string",
-          "example": "Architecture"
-        },
         "description": {
           "type": "string",
           "example": "Une photo de la gare de Perrache"
@@ -1665,9 +1661,13 @@
           "type": "string",
           "example": "2018-02-13T00:00:00.000Z"
         },
-        "type": {
+        "source": {
           "type": "string",
-          "example": "photo"
+          "example": "https://commons.wikimedia.org/wiki/File:Sample.jpg"
+        },
+        "rightsHolder": {
+          "type": "string",
+          "example": "John Doe"
         }
       }
     },

@@ -229,10 +229,6 @@ paths:
         in: formData
         required: true
         type: string
-      - name: subject
-        in: formData
-        required: true
-        type: string
       - name: description
         in: formData
         required: true
@@ -245,9 +241,13 @@ paths:
         in: formData
         required: true
         type: string
-      - name: type
+      - name: source
         in: formData
         required: true
+        type: string
+      - name: rightsHolder
+        in: formData
+        required: false
         type: string
       - name: quaternionX
         in: formData
@@ -341,10 +341,6 @@ paths:
         in: formData
         required: false
         type: string
-      - name: subject
-        in: formData
-        required: false
-        type: string
       - name: description
         in: formData
         required: false
@@ -357,7 +353,11 @@ paths:
         in: formData
         required: false
         type: string
-      - name: type
+      - name: source
+        in: formData
+        required: false
+        type: string
+      - name: rightsHolder
         in: formData
         required: false
         type: string
@@ -1112,9 +1112,6 @@ definitions:
       title:
         type: string
         example: Perrache
-      subject:
-        type: string
-        example: Architecture
       description:
         type: string
         example: Une photo de la gare de Perrache
@@ -1124,9 +1121,12 @@ definitions:
       pubicationDate:
         type: string
         example: 2018-02-13
-      type:
+      source:
         type: string
-        example: photo
+        example: "https://commons.wikimedia.org/wiki/File:Sample.jpg"
+      rightsHolder:
+        type: string
+        example: John Doe
   Visualization:
     type: object
     properties:
