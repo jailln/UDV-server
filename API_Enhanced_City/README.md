@@ -1,51 +1,60 @@
-# Description of the API Enhanced Document application
+# Description of the API Enhanced City application
 
-# Introduction
+## Introduction
 
-The goal of the API **Enhanced Document** is to handle documents needed from the front-end in [UDV](https://github.com/MEPP-team/UDV).
+The goal of the API **Enhanced City** is to handle various types of data that are part of the city, in the context of UDV. For the moment, the API handles a few types of resources :
 
-It achieves all the [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) on the backend side.
-API Document (AED) is developed in python and is based on an **MVC** (Model, View, Controller) architecture.
-Persistance of objects (documents) to the DataBase is obtained through the usage of the [sqlalchemy library](https://www.sqlalchemy.org) [**ORM**](https://en.wikipedia.org/wiki/Object-relational_mapping).
-In order to wrap the (CRUD) service within an HTTP protocol (to deal with the requests and send responses to the client), AED uses the [flask library](http://flask.pocoo.org/docs/1.0/).
+- Documents (file and metadata)
+- Guided tours (squences of documents with additional texts)
+- User accounts and rights
+- Links between documents and other objects
 
+These resources are used in the front-end of [UDV](https://github.com/MEPP-team/UDV).
 
-**ExtendedDocument** is an object, that correspond to a (raw) document (e.g. a picture, a map, a graphic) associated with some metadata and other visualization data.
-The ability to attach Extended Documents (and more generally information) to city objects is a key feature of UDV. The API Extended Document (AED) application (acting on the backend side) thus offers to create, read, update and delete Extended Documents.
-On top of that, in order to respond to the 
-[need 07](https://github.com/MEPP-team/RICT/blob/87610d01d87f5c6dfc2873c28de59b06b33aa31f/Doc/Devel/Needs/Need007.md)
-and the [need 25](https://github.com/MEPP-team/RICT/blob/87610d01d87f5c6dfc2873c28de59b06b33aa31f/Doc/Devel/Needs/Need025.md), 
-we have also the possibility to attach an **ExtendedDocument** to one or several **Guided Tours**.
+The application achieves all the [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) on the backend side.
+API Enhanced City is developed in python and is based on an **MVC** (Model, View, Controller) architecture.
+Persistance of objects to the DataBase is obtained through the usage of the [sqlalchemy library](https://www.sqlalchemy.org) [**ORM**](https://en.wikipedia.org/wiki/Object-relational_mapping).
+In order to wrap the (CRUD) service within an HTTP protocol (to deal with the requests and send responses to the client), the API uses the [flask library](http://flask.pocoo.org/docs/1.0/).
 
-You can find below the the class diagram of an Extended Document as used within the API Extended Document (AED) application: 
-![](doc/GuidedTour_ClassDiagram.png)
+## Resources
 
-In addition, you can find the database diagram, used in relation with the class diagram:  
-![](doc/Document_DatabaseDiagram.png)
-*Note: This diagram was automatically create using [DataGrip](https://www.jetbrains.com/datagrip/) developed by JetBrains.*
+In this section, the various entities managed by the API will be described.
 
-The sources of the API Extended Document application can be found on the [UDV sever git repository](.)
+- A **Document** represents a multimedia asset, coupled with some metadata. These metadata consist of a few attributes (title, description, etc.). Additional pieces of information are represented by other entities in relationship with documents :
+  - The **Visualization** class contains 3D coordinates and orientation to place the document in the scene. The goal is for the document to be "projected" in the 3D objects of the scene.
+  - The **ValidationStatus** represents the state of the document concerning the validation process. Its value can either be "Validated" or "In validation". Whe, a contributor makes a suggestion, the document is considered "In validation" and does not appear on the full list of documents. Once a moderator or an administrator accepts it, it becomes "Validated".
+- The class **GuidedTour** represent a sequence of documents, which can be displayed in order with additional text in the web client. To represent the *many to many* relationship with the **Document** class, another entity is created, called **DocumentGuidedTour**.
+- User accounts are represented by the **User** class. A user has a few pieces of information (a username, a name, etc.) and a role, represented by the **UserRole** class. The role defines the permissions of a user : as of today, 3 different roles are defined (contributor - a normal user, moderator - a user that can view and validate submissions, and admin - with all permissions).
+  - In order to keep the user management separate from the documents, the relationship is represented by a dedicated class called **DocumentUser**. A document has only one user, who represents its creator (on the website).
+  - Another class is used to represent the comments of a document : it bears the name **Comment**. A comment has one author and is bound to one document.
+- Consecutive versions of documents are saved in the **Version** entity. This class has all attributes of the document and the associated visualization.
+- The link between documents and city objects is represented by the **LinkCityObject** class. In the future, more types of links could be implemented by adding new "Link<Object>" classes.
+
+You can find below the actual database diagram currently used in the application.
+![](doc/img/diagram_api.png)
+This diagram was generated by the [yFiles](https://www.yworks.com/products/yfiles) plugin of the [PyCharm](https://www.jetbrains.com/pycharm/) IDE.
+
+The sources of the API Enhanced City application can be found on the [UDV sever git repository](.).
 
 ## MVC Architecture
-The AED application uses an [Model View Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture that is described in this chapter.
+
+The application uses an [Model View Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture that is described in this chapter.
 
 ### Model (entity)
-A (UDV oriented) document is composed of two main parts :
-- the **MetaData** of the document such as having a title, a description, etc.
-- the **Visualisation** data that can allow e.g. to display the document   at a specified spatial position when realising a rendering of a City.
 
-In order to relate (link) those two parts, the MetaData and the Visualisation classes, AED uses a third entity called **ExtendedDocument**.
+The model consist of the class definitions for the diagram shown above. These are located in the [entities](./entities) folder. They also contain some logic to interact with the persistence unit (the database), in order to create, update or delete themselves.
 
-On top of ExtendedDocument, AED implements the notion of **GuidedTour**. Because the relationship between **ExtendedDocument** and **GuidedTour** is a Many to Many type, AED defines the **ExtendeDocGuideTour** class. **ExtendeDocGuideTour** can link a document to a GuidedTour. Note that an ExtendedDocument can be associated several times to the same guided tour. Since a Guided Tour has a beginning and an end, the notion or order is thus important, and we hence have the attribute **doc_position**, that defines the order of each document in the guided tour.
-
+Some entities have special behaviour : the document entity for example, creates a new "version" entity at each update.
 
 ### Controller
+
 The controller is used to interact with the entities. It can realize all the CRUD (Create, Read, Update, Delete) operations.
 
 ### View
-The view is a sort of interface between a human and the application.
-By following the human's action the view informs the controller which will make some operations in response.
-In the application, the view is called **web_api.py** and can intercept web requests and send response to them.
+
+The view of API Enhanced City consist of the definition of the different routes to access the resources. A route is simply a path specified in the URL to request specific resources or perform actions. For example, the request `GET <server-url>/document` returns a JSON list of all documents. The API is designed by following the [REST architectural style](https://en.wikipedia.org/wiki/Representational_state_transfer) and you can find the documentations for all routes in the [documentation file](./doc/API-Documentation.md).
+
+The view is defined in the [api](./api/) folder, and the route themselves are all located in the [web_api.py](./api/web_api.py) file.
 
 ## ORM (Object Relational Mapping)
 
@@ -67,7 +76,7 @@ We tried to make a [résumé](entities/README.md) of what we use from SQLAlchemy
 ### Flask
 
 [flask](http://flask.pocoo.org/docs/1.0/) is a micro web framework developped in python. This framework allows us to interpret HTTP request (mainly GET and POST methods) and send appropriate response to the client.
-Some complementary information (concerning the Flask part of the ADE application) is available in 
+Some complementary information (concerning the Flask part of the application) is available in 
 the [api folder](api/README.md).
 Moreover, you can find a tutorial [here](http://flask.pocoo.org/docs/1.0/quickstart/#a-minimal-application).
 
@@ -84,28 +93,22 @@ This directory contains some methods to facilitate the interaction between the D
 **test**
 The test directory is used to make tests, in order to assert that the application works well.
 
-**db_config**
-This directory global script and file to configure the application
-
-**config.yml**
-This file is used to specify information about the database. In order to use the **yml** format we use the python library named [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation). The `config.yml` file has the following form:
-
-```
-ordbms: <type of DB>
-user: <use of the DB>
-password: <user password>
-host: <server hosting the db>
-port: <port of the server>
-dbname: <name of the database>
-```
-
-**log.py**
-Defines the configuration of the logger of the ADE application
+**log**
+Defines the configuration of the logger of the application.
 
 **db_config.py**
-Configures the application by using the *config.yml* file.
+Configures the application by using the environment variables (defined in [.env](./.env)). The .env file has the following definitions :
 
-# Other documentations
+```
+ordbms=<type of DB>
+user=<username to use the DB>
+password=<password of the user>
+host=<server hosting the DB>
+port=<port of the server>
+dbname=<name of the database>
+```
+
+## Other documentations
 
 - **How to use the API**
 You can find [here](doc/API-Documentation.md) the documentation of the API which describes mainly the routes to commuicate with the server.
