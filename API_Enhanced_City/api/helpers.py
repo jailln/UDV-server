@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf8
-
+from entities.User import User
 from util.Exception import *
 from util.log import *
 from util.VarConfig import *
@@ -10,6 +10,8 @@ import sqlalchemy.exc
 import sqlalchemy.orm
 import jwt
 import re
+
+from persistence_unit import PersistenceUnit as pUnit
 
 from functools import wraps
 
@@ -133,6 +135,12 @@ def use_authentication(required=True):
                                              algorithms=['HS256'])
                     if decoded_jwt is None:
                         raise Unauthorized
+
+                    session = pUnit.Session()
+                    user = session.query(User).filter(User.id == decoded_jwt['user_id']).one()
+                    session.close()
+                    if user is None:
+                        raise UnprocessableEntity("User does not exist")
                 except KeyError:
                     if required:
                         raise Unauthorized("Missing 'Authorization' header")
