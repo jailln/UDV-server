@@ -1,5 +1,14 @@
+# Clone the repository (holding this directory)
+You need to clone this repository with one of the following commands:
+ - as a user: `git clone https://github.com/MEPP-team/UDV-server.git`
+ - as a developer, that is if you have an ssh key: `git clone git@github.com:MEPP-team/UDV-server.git`
+
+Then you need to connect to directory **API_Extended_Document**: `cd UDV-server/API_Extended_Document`
+
+*Note: In windows `/` is replaced by `\`*
+
 # Install using docker
-Modify the .env file to match this configuration:
+Modify the [.env](.env) file to match this configuration:
 
 ````
 # database configuration
@@ -87,22 +96,10 @@ sudo docker-compose up
 # Manual install  
 
 ## Install Python and PostgreSQL
-
 [Python 3.6](https://www.python.org/downloads/) or newer is recommended and PostgreSQL can be install following
 [this](https://www.postgresql.org/docs/9.3/static/tutorial-install.html).
 
-## Clone this repository
-
-You need to clone this repository by typing, if you have an ssh key: `git clone git@github.com:MEPP-team/UDV-server.git`
-
-or otherwise: `git clone https://github.com/MEPP-team/UDV-server.git`
-
-Then you need to go to the directory **API_Extended_Document**: `cd UDV-server/API_Extended_Document`
-
-*Note: In windows `/` is replaced by `\`*
-
-## Create a virtual environment
-
+## Create a (python) virtual environment
 Then, create a virtual env in which we put the python intereter and our dependencies (only on Python3.6 or newer):
 ```
 python3 -m venv venv
