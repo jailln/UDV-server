@@ -56,8 +56,8 @@ If you get the following error when running `sudo docker-compose up` :
 ````
 Creating extended_doc_db ...
 Creating extended_doc_db ... errorERROR: for extended_doc_db  
-Cannot start service postgres: driver failed programming external connectivity on endpoint extended_doc_db 
-(b3e0b552dd60e5f8dbb91d4a8d40234c7de8e9f2a621a05490896dfd0fc01411): Error starting userland proxy: 
+Cannot start service postgres: driver failed programming external connectivity on endpoint
+     extended_doc_db (XXXX): Error starting userland proxy: 
 listen tcp 0.0.0.0:5432: bind: address already in useERROR: for postgres  Cannot start service postgres: 
 driver failed programming external connectivity on endpoint extended_doc_db 
 (b3e0b552dd60e5f8dbb91d4a8d40234c7de8e9f2a621a05490896dfd0fc01411): 
