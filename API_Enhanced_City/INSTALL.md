@@ -24,7 +24,6 @@ dbname=extendedDoc
 > Please make sure when you commit your files that you do not commit the `.env` file. If you see that `.env` appears in your changelog (in the `git status` command for example), you can prevent it from being commited using the command `git update-index --assume-unchanged .env`.
 
 Then run the following commands:
-
 ````
 sudo apt-get install docker
 sudo apt-get install docker-compose
@@ -32,6 +31,8 @@ sudo systemctl start docker.service
 sudo docker-compose build
 sudo docker-compose up
 ````
+In order to test that the server is indeed running, open `http://localhost/1525/` and assert that you get some response.
+Note that the `1525` port number is the one configured (mapped for the `app` service) in the [docker-compose.yml](docker-compose.yml#L19) configuration file.
 
 ### Troubleshooting
  - **Problem with docker-compose**<br>
