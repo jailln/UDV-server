@@ -14,7 +14,7 @@ For an install of the full pipeline of our application, please refer to
 
 TODO
 
-Please visit [this page](https://github.com/MEPP-team/UDV-server/blob/master/API_Enhanced_City/INSTALL.md) in order to install this tool.
+Please visit [this page](https://github.com/MEPP-team/UD-Serv/blob/master/API_Enhanced_City/INSTALL.md) in order to install this tool.
 
 ### ExtractCityData
 

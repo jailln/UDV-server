@@ -11,7 +11,7 @@ setup(
     name='UDV-server',
     version='0.1',
     description='Collection of server-side tools for converting and analysing urban data',
-    url='https://github.com/MEPP-team/UDV-server',
+    url='https://github.com/MEPP-team/UD-Serv',
     author='VCity',
     author_email='vincent.jaillot@liris.cnrs.fr',
     classifiers=[

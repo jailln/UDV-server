@@ -1,7 +1,7 @@
 ## Clone the repository (holding this directory)
 You need to clone this repository with one of the following commands:
- - as a user: `git clone https://github.com/MEPP-team/UDV-server.git`
- - as a developer, that is if you have an ssh key: `git clone git@github.com:MEPP-team/UDV-server.git`
+ - as a user: `git clone https://github.com/MEPP-team/UD-Serv.git`
+ - as a developer, that is if you have an ssh key: `git clone git@github.com:MEPP-team/UD-Serv.git`
 
 Then you need to connect to directory **API_Extended_Document**: `cd UDV-server/API_Extended_Document`
 

@@ -11,3 +11,7 @@ API_Extended_Document/Dockerfile
 API_Extended_Document/postgres-data/*
 API_Extended_Document/upload/*
 *.log
+
+# When working with remark (mardown link checking)
+node_modules
+package-lock.json
