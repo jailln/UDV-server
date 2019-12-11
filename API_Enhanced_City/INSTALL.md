@@ -3,7 +3,7 @@ You need to clone this repository with one of the following commands:
  - as a user: `git clone https://github.com/MEPP-team/UD-Serv.git`
  - as a developer, that is if you have an ssh key: `git clone git@github.com:MEPP-team/UD-Serv.git`
 
-Then you need to connect to directory **API_Extended_Document**: `cd UDV-server/API_Extended_Document`
+Then you need to connect to directory **API_Extended_Document**: `cd UD-Serv/API_Extended_Document`
 
 *Note: In windows `/` is replaced by `\`*
 

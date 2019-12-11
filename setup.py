@@ -8,7 +8,7 @@ requirements = (
 )
 
 setup(
-    name='UDV-server',
+    name='UD-Serv',
     version='0.1',
     description='Collection of server-side tools for converting and analysing urban data',
     url='https://github.com/MEPP-team/UD-Serv',

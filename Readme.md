@@ -1,6 +1,6 @@
-# UDV-server
+# UD-Serv
 
-UDV-server is a collection of server-side tools for converting and analysing urban data.
+UD-Serv is a collection of server-side tools for converting and analysing urban data.
 The client-side component can be found [here](https://github.com/MEPP-team/UDV).
 
 Version number is defined in `setup.py`.
