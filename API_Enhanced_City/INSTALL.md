@@ -212,8 +212,10 @@ A more detailed set up can be find on its server and its documentation.
      logto2: /home/citydb_user/Demos/DocumentDemo/uWSGI-server.log  <--- Adapt this
    ```
 
- * Fom the directory which contains the `Deployment` directory
- * Launch the uWSGI server `(venv) $ uwsgi --yml Deployment/API_Extended_Document.uwsgi.yml --http-socket :9090`
+ * From the directory which contains the `Deployment` directory, launch the uWSGI server 
+   ```
+   (venv) $ uwsgi --yml Deployment/API_Extended_Document.uwsgi.yml --http-socket :9090
+   ```
 
 #### Save the documents located in the Database
 
