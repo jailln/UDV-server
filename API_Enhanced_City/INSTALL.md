@@ -153,7 +153,7 @@ and in `Program Files (x86)\PostgreSQL\X.X\data\postgresql.conf` on Windows
 
 ### Tests
 
-To verify everything works find, you can execute the tests files, located in the folder
+To verify everything works fine, you can execute the tests files, located in the folder
 [**test**](test)
 
 By default, python will not find the local packages (such as **test** or **api**),
