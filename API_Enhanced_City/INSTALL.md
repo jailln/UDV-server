@@ -117,7 +117,7 @@ Required packages for the application:
 - [**PyYAML**](https://pyyaml.org/wiki/PyYAMLDocumentation)
 - [**Colorama**](https://pypi.org/project/colorama/)
 
-Install them usin: `pip3 install -r requirements.txt` where
+Install them using: `pip3 install -r requirements.txt` where
 `requirements.txt` contains the preceding packages.
 
 ### Create a postgres DataBase
