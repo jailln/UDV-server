@@ -133,7 +133,7 @@ You need to create a postgres database for instance on linux with
 It is a software like [PhpMyAdmin](https://www.phpmyadmin.net/) but for PostgreSQL database.
 By default, it is installed with PostgreSQL: `Program Files (x86)\PostgreSQL\X.X\pgAdminX\bin\pgAdminX.exe`*
 
-Then modify the [**.env**](.env) to reflect your onfiguration.
+Then modify the [**.env**](.env) to reflect your configuration.
 If you have created a new database as below, no change is needed but verify anyway everything are correct
 
 ```
