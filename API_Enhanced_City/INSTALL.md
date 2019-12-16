@@ -156,18 +156,17 @@ and in `Program Files (x86)\PostgreSQL\X.X\data\postgresql.conf` on Windows
 To verify everything works fine, you can execute the tests files, located in the folder
 [**test**](test)
 
-By default, python will not find the local packages (such as **test** or **api**),
-you need to add the location of **API_Enhanced_City** to the environment variable **PYTHONPATH** .
-- On **Linux**: `export PYTHONPATH="."`
-- On **Windows**: `set PYTHONPATH=.`
-
-`.` corresponds to the location of **API_Enhanced_City** and can be replaced
+By default, python will not find the local packages (such as **test** or **api**).
+You thus need to add the location of **API_Enhanced_City** to the environment variable **PYTHONPATH** :
+ - On **Linux**: `export PYTHONPATH="."`
+ - On **Windows**: `set PYTHONPATH=.`
+where the `.` (current directory) corresponds to the location of **API_Enhanced_City** and can be replaced
 by any path to this directory.
 
 Then you can run any test file located in the **test** directory, for instance:
 ```
-python3 test/document_tests.py
-python3 test/guided_tour_tests.py
+python3 test/test_document.py
+python3 test/test_guided_tour.py
 ```
 
 *Note: if the tests don't run, verify that you have at least Python 3.6"
