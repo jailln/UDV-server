@@ -23,6 +23,8 @@ dbname=extendedDoc
 > *Note: the .env that is commited should not be modified because it is used by travis for CI.*  
 > Please make sure when you commit your files that you do not commit the `.env` file. If you see that `.env` appears in your changelog (in the `git status` command for example), you can prevent it from being commited using the command `git update-index --assume-unchanged .env`.
 
+> Note: the default password for the administrator account (the one you must use to SignIn as `admin` within the web interface in order to declare users) is [not well documented](https://github.com/MEPP-team/UD-Serv/issues/89)... By default and in despair try using `password`.  
+
 Then run the following commands:
 ````
 sudo apt-get install docker
