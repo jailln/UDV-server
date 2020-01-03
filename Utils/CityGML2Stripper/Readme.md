@@ -1,6 +1,6 @@
-A small utility that strip a CityGML 2.0 (XML) 
-file and serializes the result in a new CityGML (XML) 
-file. It removes appearences and generic attributes.
+A small utility that strips a CityGML 2.0 (XML)file from its 
+appearences and generic attributes and serializes the result
+back into a new CityGML (XML) file.
 
 ## Installation
 ```bash
