@@ -35,4 +35,8 @@ if __name__ == '__main__':
     ET.strip_elements(parsed_file,
                       '{' + parsed_file.getroot().nsmap['gen'] + '}' + '*')
 
-    parsed_file.write(cli_args.output[0])
+    # Concerning the xml_declaration and encoding tags, refer e.g. to 
+    # https://stackoverflow.com/questions/12966488/preserving-original-doctype-and-declaration-of-an-lxml-etree-parsed-xml
+    parsed_file.write(cli_args.output[0],
+                      xml_declaration=True,
+                      encoding=parsed_file.docinfo.encoding)
